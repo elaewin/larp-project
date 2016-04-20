@@ -1,19 +1,18 @@
-.. larp-project documentation master file, created by
-   sphinx-quickstart on Mon Apr 11 17:54:26 2016.
+.. Larpproject documentation master file, created by
+   sphinx-quickstart on Tue Apr 19 19:52:04 2016.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
 LARP-project Documentation
-==========================
+=======================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   instructions.rst
    about.rst
-
-
 
 Indices and tables
 ==================
