@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # LARP-project documentation build configuration file, created by
-# sphinx-quickstart on Tue Apr 19 21:02:41 2016.
+# sphinx-quickstart on Sat Apr 23 16:19:10 2016.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
