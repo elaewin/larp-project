@@ -4,7 +4,7 @@ from events.models import Event
 
 
 class PostTestCase(TestCase):
-    fixtures = ['events_test_fixture.json', ]
+    fixtures = ["events_test_fixture.json", ]
 
     def setUp(self):
         self.user = User.objects.get(pk=1)
