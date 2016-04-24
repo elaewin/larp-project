@@ -16,7 +16,7 @@ class Event(models.Model):
     game_on = models.TimeField()
     game_off = models.TimeField()
     location_address1 = models.CharField(max_length=64)
-    location_address1 = models.CharField(max_length=64, blank=True)
+    location_address2 = models.CharField(max_length=64, blank=True)
     location_city = models.CharField(max_length=64)
     location_state = models.CharField(max_length=2)
     contact_name = models.CharField(max_length=128)
