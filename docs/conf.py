@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# LARP-project documentation build configuration file, created by
+# LARP-Project documentation build configuration file, created by
 # sphinx-quickstart on Sat Apr 23 16:35:49 2016.
 #
 # This file is execfile()d with the current directory set to its
@@ -19,7 +19,7 @@ import os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('..'))
 
 # -- General configuration ------------------------------------------------
 
@@ -49,7 +49,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'LARP-project'
+project = 'LARP-Project'
 copyright = '2016, E.L. Winberry'
 author = 'E.L. Winberry'
 
@@ -99,7 +99,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 pygments_style = 'sphinx'
 
 # A list of ignored prefixes for module index sorting.
-#modindex_common_prefix = []
+# modindex_common_prefix = ['events.']
 
 # If true, keep warnings as "system message" paragraphs in the built documents.
 #keep_warnings = False
@@ -124,7 +124,7 @@ html_theme = 'alabaster'
 
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
-#html_title = 'LARP-project v0.1.0'
+#html_title = 'LARP-Project v0.1.0'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None
@@ -206,7 +206,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'LARP-projectdoc'
+htmlhelp_basename = 'LARP-Projectdoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -228,7 +228,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'LARP-project.tex', 'LARP-project Documentation',
+    (master_doc, 'LARP-Project.tex', 'LARP-Project Documentation',
      'E.L. Winberry', 'manual'),
 ]
 
@@ -258,7 +258,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'larp-project', 'LARP-project Documentation',
+    (master_doc, 'larp-project', 'LARP-Project Documentation',
      [author], 1)
 ]
 
@@ -272,8 +272,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'LARP-project', 'LARP-project Documentation',
-     author, 'LARP-project', 'One line description of project.',
+    (master_doc, 'LARP-Project', 'LARP-Project Documentation',
+     author, 'LARP-Project', 'One line description of project.',
      'Miscellaneous'),
 ]
 

@@ -3,14 +3,15 @@ from django.contrib.auth.models import User
 
 
 class Event(models.Model):
-    '''
-    Class for creating new game events.
-    '''
+    """
+    Class for all game events.
+    """
     title = models.CharField("Game Title", max_length=128)
     creator = models.ForeignKey(User)
     game_system = models.CharField(max_length=128)
     online_rules = models.BooleanField("Rules set is online", default=False)
     rules_url = models.URLField("Rules URL", blank=True)
+    description = models.TextField(blank=True)
     date = models.DateField("Game Date", blank=True, default="2016-01-01")
     checkin = models.TimeField("Check-in opens", blank=True, default="12:00:00.000")
     game_on = models.TimeField("Game on at", blank=True, default="12:00:00.000")
