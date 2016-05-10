@@ -20,12 +20,32 @@ class Event(models.Model):
     location_address2 = models.CharField("Address, cont.", max_length=64, blank=True)
     location_city = models.CharField("City", max_length=64, blank=True)
     location_state = models.CharField("State", max_length=2, blank=True)
+    location_zip = models.CharField("Zip/Postal Code", max_length=24, blank=True)
     contact_name = models.CharField("Organizer contact name", max_length=128, blank=True)
     contact_email = models.EmailField("Organizer email address", blank=True)
     pregens = models.BooleanField("Game uses pregenerated characters", default=False)
+    character_info = models.CharField("Character Creation Info", max_length=512, blank=True)
     age_restriction = models.BooleanField("Game is restricted by age", default=True)
     age_limit = models.PositiveSmallIntegerField("Minimum age to play", default="18")
     cost = models.PositiveSmallIntegerField("Game cost/Site fee", default="0")
+    created_date = models.DateTimeField("Created", auto_now_add=True)
+    modified_date = models.DateTimeField("Modified", auto_now=True)
+    published_date = models.DateTimeField("Published", blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name_plural = 'Events'
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=128)
+    description = models.TextField(blank=True)
+    events = models.ManyToManyField(Event, blank=True, related_name='tags')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Tags'
