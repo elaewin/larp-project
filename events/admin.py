@@ -20,7 +20,7 @@ class EventAdmin(admin.ModelAdmin):
     ]
     list_display = ('title', 'creator_for_admin', 'date', 'created_date', 'modified_date')
     readonly_fields = ('created_date', 'modified_date')
-    actions = ['make_published', ]
+    actions = [make_published, ]
 
     def creator_for_admin(self, obj):
         creator = obj.creator

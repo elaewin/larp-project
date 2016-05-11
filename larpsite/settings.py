@@ -126,3 +126,6 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = '/'
+
+# Django Registration Settings
+ACCOUNT_ACTIVATION_DAYS = 3

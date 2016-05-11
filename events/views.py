@@ -1,9 +1,10 @@
-from django.shortcuts import render
+import datetime
+from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-
-
-from django.template import RequestContext, loader
+from django.shortcuts import redirect, render
+# from django.template import RequestContext, loader
 from events.models import Event
+from events.forms import ContactForm, EventForm
 
 
 def stub_view(request, *args, **kwargs):
@@ -32,3 +33,32 @@ def event_view(request, event_id):
         raise Http404
     context = {'event': event}
     return render(request, 'detail.html', context)
+
+
+def event_new(request):
+    if request.method == "POST":
+        form = EventForm(request.POST)
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.creator = request.user
+            event.published_date = datetime.datetime.now()
+            event.save()
+            return redirect('event_detail', event.pk)
+    else:
+        form = EventForm()
+    return render(request, 'event_edit.html', {'form': form})
+
+
+
+# if ContactForm.is_valid():
+#     subject = ContactForm.cleaned_data['subject']
+#     message = ContactForm.cleaned_data['message']
+#     sender = ContactForm.cleaned_data['sender']
+#     cc_myself = ContactForm.cleaned_data['cc_myself']
+
+#     recipients = [Event.contact_email]
+#     if cc_myself:
+#         recipients.append(sender)
+
+#     send_mail(subject, message, sender, recipients)
+#     return HttpResponseRedirect('/thanks/')

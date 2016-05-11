@@ -28,4 +28,5 @@ urlpatterns = [
         logout,
         {'next_page': '/'},
         name="logout"),
+    url(r'^accounts/', include('registration.backends.hmac.urls')),
 ]
