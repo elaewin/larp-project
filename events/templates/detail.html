@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a class="backlink" href="/">List of Games</a>
-<h1>{{ event }}</h1>
+<h2>{{ event }}</h2>
 <p class="byline">
   Hosted by <a href="mailto:{{ event.contact_email }}">{{ event.contact_name }}</a>
+</p>
+<p>
+  {% if event.creator == user %}<a class="btn btn-default" href="{% url 'event_edit' event.pk %}">Edit</a>{% endif %}
 </p>
 <div class="post-body">
   <p>
@@ -33,14 +35,17 @@
       {% else %}
         {{ event.character_info }}
       {% endif %}</p>
+    {% if event.tags.all|length > 0 %}
+      <ul class="tags">
+          <li><strong>Tags:</strong></li>
+        {% for tag in event.tags.all %}
+          <li>{{ tag }},</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
-<ul class="tags">
-  {% for tag in event.tags.all %}
-    <li>{{ tag }} </li>
-  {% endfor %}
-</ul>
 <div class="footer">
-  <p>Created by {{ event.creator }} on {{ event.published_date }}<br />
+  <p class="time_info">Created by {{ event.creator }} on {{ event.published_date }}<br />
   Last modified 
     {% if event.modified_date %} 
       {{ event.modified_date }}

@@ -1,7 +1,7 @@
 import datetime
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 # from django.template import RequestContext, loader
 from events.models import Event
 from events.forms import ContactForm, EventForm
@@ -20,7 +20,7 @@ def stub_view(request, *args, **kwargs):
 
 def list_view(request):
     published = Event.objects.exclude(published_date__exact=None)
-    events = published.order_by('-published_date')
+    events = published.order_by('date')
     context = {'events': events}
     return render(request, 'list.html', context)
 
@@ -46,6 +46,21 @@ def event_new(request):
             return redirect('event_detail', event.pk)
     else:
         form = EventForm()
+    return render(request, 'event_edit.html', {'form': form})
+
+
+def event_edit(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+    if request.method == "POST":
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.creator = request.user
+            event.published_date = datetime.datetime.now()
+            event.save()
+            return redirect('event_detail', event.pk)
+    else: 
+        form = EventForm(instance=event)
     return render(request, 'event_edit.html', {'form': form})
 
 
