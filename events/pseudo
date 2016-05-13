@@ -1,0 +1,21 @@
+# A potential GM or player finds the site and creates an account
+    # Once the account is approved, they have three options:
+        # 1. Create a new game
+        # 2. Edit info for an existing game
+        # 3. Join an existing game
+
+# OPTION 1:
+# A GM logs in and creates a new game
+
+
+# OPTION 2:
+
+
+#OPTION 3:
+# A player logs in and looks at the list of games.
+    # EITHER:
+    # The player is interested in a game and asks to be added to the list of players.
+    # The GM receives a subscription request and approves or denys it.
+
+    # OR:
+    # The player adds herself to the game she is interested in attending.

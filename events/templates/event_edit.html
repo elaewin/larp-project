@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% if form.title %}
+    <h2>Edit Your Event</h2>
+  {% else %}
+    <h2>New Game Event</h2>
+  {% endif %}
+
+  <form method="POST" class="event-form">{% csrf_token %}
+  
+    {{ form.as_p }}
+
+  <div class="table">
+    <button class="submit-btn" type="submit">Submit</button>
+  </div>
+
+  </form>
+
+{% endblock %}
