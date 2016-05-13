@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 class Event(models.Model):
@@ -11,7 +12,7 @@ class Event(models.Model):
     game_system = models.CharField(max_length=128)
     online_rules = models.BooleanField("Rules set is online", default=False)
     rules_url = models.URLField("Rules URL", blank=True)
-    description = models.TextField(blank=True)
+    description = RichTextField(blank=True)
     date = models.DateField("Game Date", blank=True, default="2016-01-01")
     checkin = models.TimeField("Check-in opens", blank=True, default="12:00:00.000")
     game_on = models.TimeField("Game on at", blank=True, default="12:00:00.000")
@@ -24,7 +25,7 @@ class Event(models.Model):
     contact_name = models.CharField("Organizer contact name", max_length=128, blank=True)
     contact_email = models.EmailField("Organizer email address", blank=True)
     pregens = models.BooleanField("Game uses pregenerated characters", default=False)
-    character_info = models.CharField("Character Creation Info", max_length=512, blank=True)
+    character_info = RichTextField("Character Creation Info", blank=True)
     age_restriction = models.BooleanField("Game is restricted by age", default=True)
     age_limit = models.PositiveSmallIntegerField("Minimum age to play", default="18")
     cost = models.PositiveSmallIntegerField("Game cost/Site fee", default="0")
