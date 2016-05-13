@@ -2,19 +2,14 @@
 
 {% block content %}
 
-  {% if form.title %}
-    <h2>Edit Your Event</h2>
-  {% else %}
-    <h2>New Game Event</h2>
-  {% endif %}
+   <button class="submit-btn" type="submit">submit</button>
+
+  <h2>Editing Game Event</h2>
 
   <form method="POST" class="event-form">{% csrf_token %}
   
+    {{ form.media }}
     {{ form.as_p }}
-
-  <div class="table">
-    <button class="submit-btn" type="submit">Submit</button>
-  </div>
 
   </form>
 
