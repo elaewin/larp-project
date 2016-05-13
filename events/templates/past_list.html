@@ -1,11 +1,13 @@
 {% extends "base.html" %} {% block content %}
-  <h2 class="centered">Upcoming Games</h2>
+
+  <h2 class="centered">Past Games</h2>
   {% comment %} here is where the query happens {% endcomment %}
+
   {% for event in events %}
       <div class="post">
         <h3 class="event_list_header"><a href="{% url 'event_detail' event.pk %}">{{ event }}</a></h3>
         <p class="byline">
-          Game Date: {{ event.date|date:"SHORT_DATE_FORMAT" }}<br />
+          Game Date: {{ event.date }}<br />
           Hosted by {{ event.creator }}<br />
           Game System: <a href=" {{ event.rules_url }} ">{{ event.game_system }}</a>
         </p>
@@ -24,5 +26,6 @@
         {% endif %}
         </div>
       </div>
+
   {% endfor %}
 {% endblock %}

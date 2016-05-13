@@ -5,9 +5,6 @@
 <p class="byline">
   Hosted by <a href="mailto:{{ event.contact_email }}">{{ event.contact_name }}</a>
 </p>
-<p>
-  {% if event.creator == user %}<a class="btn btn-default" href="{% url 'event_edit' event.pk %}">Edit</a>{% endif %}
-</p>
 <div class="post-body">
   <p>
     Event Date: {{ event.date }}<br />

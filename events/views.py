@@ -18,11 +18,22 @@ def stub_view(request, *args, **kwargs):
     return HttpResponse(body, content_type="text/plain")
 
 
+def home_view(request):
+    return render(request, 'home.html', {})
+
+
 def list_view(request):
-    published = Event.objects.exclude(published_date__exact=None)
+    published = Event.objects.exclude(published_date__exact=None).exclude(date__lt=datetime.datetime.now())
     events = published.order_by('date')
     context = {'events': events}
     return render(request, 'list.html', context)
+
+
+def past_list_view(request):
+    published = Event.objects.exclude(published_date__exact=None).exclude(date__gt=datetime.datetime.now())
+    events = published.order_by('date')
+    context = {'events': events}
+    return render(request, 'past_list.html', context)
 
 
 def event_view(request, event_id):
