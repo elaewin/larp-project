@@ -103,6 +103,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Allows verification emails when no mailserver on my machine 
+# COMMENT OUT WHEN PUTTING ON SERVER
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -136,6 +140,10 @@ LOGIN_REDIRECT_URL = '/'
 
 # Django Registration Settings
 ACCOUNT_ACTIVATION_DAYS = 3
+
+REGISTRATION_OPEN = True
+
+# REGISTRATION_SALT
 
 # Modification for django-ckeditor
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'

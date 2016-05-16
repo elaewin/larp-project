@@ -1,4 +1,5 @@
 import datetime
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -36,6 +37,7 @@ def past_list_view(request):
     return render(request, 'past_list.html', context)
 
 
+@login_required
 def event_view(request, event_id):
     published = Event.objects.exclude(published_date__exact=None)
     try:
@@ -46,6 +48,7 @@ def event_view(request, event_id):
     return render(request, 'detail.html', context)
 
 
+@login_required
 def event_new(request):
     if request.method == "POST":
         form = EventForm(request.POST)
@@ -60,6 +63,7 @@ def event_new(request):
     return render(request, 'event_edit.html', {'form': form})
 
 
+@login_required
 def event_edit(request, pk):
     event = get_object_or_404(Event, pk=pk)
     if request.method == "POST":
