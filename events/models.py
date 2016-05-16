@@ -41,6 +41,9 @@ class Event(models.Model):
 
 
 class Tag(models.Model):
+    """
+    Class for adding content tags to games.
+    """
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     events = models.ManyToManyField(Event, blank=True, related_name='tags')
