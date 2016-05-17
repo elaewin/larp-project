@@ -1,4 +1,4 @@
-Installing LARP-project
+Using LARP-project
 =======================
 
 .. automodule:: events

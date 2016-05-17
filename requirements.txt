@@ -31,6 +31,7 @@ six==1.10.0
 snowballstemmer==1.2.1
 Sphinx==1.4.1
 sphinx-autobuild==0.6.0
+symposion==1.0b2.dev2
 tornado==4.3
 traitlets==4.2.1
 watchdog==0.8.3
