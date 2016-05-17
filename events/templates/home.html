@@ -6,12 +6,17 @@
   Here is an incredibly basic front page, which I'm not sure is really necessary, 
   but it seems like starting out with the list is not quite the way to go.
 </p>
-<p>We'll see what happens...</p>
+<p>We'll see what happens!</p>
 
-<p>
-  If you've never been to the site before, you should <a href="{% url 'registration_register' %}">register</a>.<br />
-  If you're already registered, aren't you special?
-</p>
-
+{% if user.is_authenticated %}
+  <p>
+    Thanks for participating in this little experiement...
+  </p>
+{% else %}
+  <p>
+    If you've never been to the site before, you should <a href="{% url 'registration_register' %}">register</a>.<br />
+    If you're already registered, aren't you special?
+  </p>
+{% endif %}
 
 {% endblock %}
