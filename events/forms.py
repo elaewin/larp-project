@@ -37,7 +37,7 @@ class EventForm(forms.ModelForm):
 class ContactForm(forms.Form):
     """
     Form for contacting the creator of an event.
-    Currently unused.
+    Currently unused. Included because this will be added in the future.
     """
     subject = forms.CharField(max_length=100)
     message = forms.CharField(widget=forms.Textarea)
