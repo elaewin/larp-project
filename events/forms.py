@@ -3,7 +3,9 @@ from events.models import Event
 
 
 class EventForm(forms.ModelForm):
-
+    """
+    Form for creating a new event.
+    """
     class Meta:
         model = Event
         fields = (
@@ -33,6 +35,10 @@ class EventForm(forms.ModelForm):
 
 
 class ContactForm(forms.Form):
+    """
+    Form for contacting the creator of an event.
+    Currently unused.
+    """
     subject = forms.CharField(max_length=100)
     message = forms.CharField(widget=forms.Textarea)
     sender = forms.EmailField()

@@ -30,6 +30,6 @@ urlpatterns = [
         logout,
         {'next_page': '/'},
         name="logout"),
-    url(r'^accounts/', include('registration.backends.hmac.urls')),
+    url(r'^', include('registration.backends.hmac.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

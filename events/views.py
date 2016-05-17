@@ -1,4 +1,5 @@
 import datetime
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -19,10 +20,18 @@ def stub_view(request, *args, **kwargs):
 
 
 def home_view(request):
+    """
+    Default view. Redirects to the landing page for the site. 
+    """
     return render(request, 'home.html', {})
 
 
 def list_view(request):
+    """
+    View for events that have not taken place. 
+    Excludes events not published in the admin view as well as any events with 
+    a datetime stamp that evaluates before 'now' via the python datetime module.
+    """
     published = Event.objects.exclude(published_date__exact=None).exclude(date__lt=datetime.datetime.now())
     events = published.order_by('date')
     context = {'events': events}
@@ -30,13 +39,22 @@ def list_view(request):
 
 
 def past_list_view(request):
+    """
+    View for events that have already taken place. 
+    Excludes events not published in the admin view as well as any events with 
+    a datetime stamp that evaluates after 'now' via the python datetime module.
+    """
     published = Event.objects.exclude(published_date__exact=None).exclude(date__gt=datetime.datetime.now())
     events = published.order_by('date')
     context = {'events': events}
     return render(request, 'past_list.html', context)
 
 
+@login_required
 def event_view(request, event_id):
+    """
+    View for details of a specific event.
+    """
     published = Event.objects.exclude(published_date__exact=None)
     try:
         event = published.get(pk=event_id)
@@ -46,7 +64,11 @@ def event_view(request, event_id):
     return render(request, 'detail.html', context)
 
 
+@login_required
 def event_new(request):
+    """
+    View for creation of a new event.
+    """
     if request.method == "POST":
         form = EventForm(request.POST)
         if form.is_valid():
@@ -60,7 +82,11 @@ def event_new(request):
     return render(request, 'event_edit.html', {'form': form})
 
 
+@login_required
 def event_edit(request, pk):
+    """
+    View for editing an existing event.
+    """
     event = get_object_or_404(Event, pk=pk)
     if request.method == "POST":
         form = EventForm(request.POST, instance=event)
