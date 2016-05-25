@@ -8,8 +8,8 @@ class TagInline(admin.TabularInline):
     model = Tag.events.through
 
 
-# class ParticipantInline(admin.TabularInline):
-#     model = Participant.User.through
+class ParticipantInline(admin.TabularInline):
+    model = Participant.players.through
 
 
 def make_published(modeladmin, request, queryset):
@@ -42,8 +42,7 @@ class TagAdmin(admin.ModelAdmin):
 
 
 class ParticipantAdmin(admin.ModelAdmin):
-    # fields = ('players')
-    pass
+    fields = ('game', 'players')
 
 
 admin.site.register(Event, EventAdmin)

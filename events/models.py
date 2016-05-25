@@ -13,10 +13,10 @@ class Event(models.Model):
     online_rules = models.BooleanField("Rules set is online", default=False)
     rules_url = models.URLField("Rules URL", blank=True)
     description = RichTextField(blank=True)
-    date = models.DateField("Game Date", blank=True, default="2016-01-01")
-    checkin = models.TimeField("Check-in opens", blank=True, default="12:00:00.000")
-    game_on = models.TimeField("Game on at", blank=True, default="12:00:00.000")
-    game_off = models.TimeField("Game off at", blank=True, default="12:00:00.000")
+    date = models.DateField("Game Date", blank=True, default="January 1, 2016")
+    checkin = models.TimeField("Check-in opens", blank=True, default="12:00")
+    game_on = models.TimeField("Game on at", blank=True, default="12:00")
+    game_off = models.TimeField("Game off at", blank=True, default="12:00")
     location_address1 = models.CharField("Game location address", max_length=64, blank=True)
     location_address2 = models.CharField("Address, cont.", max_length=64, blank=True)
     location_city = models.CharField("City", max_length=64, blank=True)
@@ -61,3 +61,9 @@ class Participant(models.Model):
     """
     game = models.ForeignKey(Event)
     players = models.ManyToManyField(User, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Participants'

@@ -121,6 +121,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Set time format to 'Hours:Minutes'.
+TIME_INPUT_FORMAT = [
+    '%H:%M',
+]
+
+# Set date format to 'Month Day, Year'.
+DATE_INPUT_FORMATS = [
+    '%B %d, %Y',
+    '%m/%d/%Y',
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/

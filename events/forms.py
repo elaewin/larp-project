@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.extras.widgets import SelectDateWidget
 from events.models import Event
 
 
@@ -8,30 +9,14 @@ class EventForm(forms.ModelForm):
     """
     class Meta:
         model = Event
-        fields = (
-            'title',
-            'title',
-            'game_system',
-            'online_rules',
-            'rules_url',
-            'description',
-            'date',
-            'checkin',
-            'game_on',
-            'game_off',
-            'location_address1',
-            'location_address2',
-            'location_city',
-            'location_state',
-            'location_zip',
-            'contact_name',
-            'contact_email',
-            'pregens',
-            'character_info',
-            'age_restriction',
-            'age_limit',
-            'cost',
-            )
+        exclude = ['creator',
+                   'created_date',
+                   'modified_date',
+                   'published_date'
+                   ]
+        widgets = {
+            'date': SelectDateWidget(),
+        }
 
 
 class ContactForm(forms.Form):
