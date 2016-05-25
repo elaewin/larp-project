@@ -53,3 +53,11 @@ class Tag(models.Model):
 
     class Meta:
         verbose_name_plural = 'Tags'
+
+
+class Participant(models.Model):
+    """
+    Lists of participants for each game.
+    """
+    game = models.ForeignKey(Event)
+    players = models.ManyToManyField(User, blank=True)

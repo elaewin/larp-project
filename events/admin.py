@@ -1,11 +1,15 @@
 import datetime
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from events.models import Event, Tag
+from events.models import Event, Tag, Participant
 
 
 class TagInline(admin.TabularInline):
     model = Tag.events.through
+
+
+class ParticipantInline(admin.TabularInline):
+    model = Participant.events.through
 
 
 def make_published(modeladmin, request, queryset):
@@ -16,7 +20,8 @@ make_published.short_description = "Set publication date for selected posts."
 
 class EventAdmin(admin.ModelAdmin):
     inlines = [
-        TagInline
+        TagInline,
+        ParticipantInline,
     ]
     list_display = ('title', 'creator_for_admin', 'date', 'created_date', 'modified_date')
     readonly_fields = ('created_date', 'modified_date')
@@ -36,7 +41,12 @@ class TagAdmin(admin.ModelAdmin):
     fields = ('name', 'description')
 
 
+class ParticipantAdmin(admin.ModelAdmin):
+    fields = ('players')
+
+
 admin.site.register(Event, EventAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Participant, ParticipantAdmin)
 
 # Register your models here.
