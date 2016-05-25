@@ -64,7 +64,7 @@ def event_view(request, event_id):
     return render(request, 'detail.html', context)
 
 
-@login_required
+# @login_required
 def event_new(request):
     """
     View for creation of a new event.
