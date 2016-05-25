@@ -235,6 +235,7 @@ class FrontEndTestCase(TestCase):
                 # publish the first five posts
                 pubdate = self.now - self.timedelta * count
                 post.published_date = pubdate
+                post.date = self.now + datetime.timedelta(days=1)
             post.save()
 
     def test_list_only_published(self):
