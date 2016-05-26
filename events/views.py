@@ -44,12 +44,13 @@ def past_list_view(request):
     Excludes events not published in the admin view as well as any events with 
     a datetime stamp that evaluates after 'now' via the python datetime module.
     """
-    published = Event.objects.exclude(published_date__exact=None).exclude(date__gt=datetime.datetime.now())
-    events = published.order_by('date')
+    published = Event.objects.exclude(published_date__exact=None)
+    events = published.order_by('date').exclude(date__gt=datetime.datetime.now())
     context = {'events': events}
     return render(request, 'past_list.html', context)
 
 
+@login_required
 def tag_view(request, slug):
     published = Event.objects.exclude(published_date__exact=None)
     tags = published.filter(tags__slug=slug)

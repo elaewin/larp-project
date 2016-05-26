@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
 from django.utils.timezone import utc
 
-from events.models import Event, Tag
+from events.models import Event
 from registration.forms import RegistrationForm
 
 
@@ -199,17 +199,6 @@ class EventTestCase(TestCase):
         self.assertEqual(expected, actual)
 
 
-class TagTestCase(TestCase):
-    """
-    Tag creation works.
-    """
-    def test_string_representation(self):
-        expected = "A Tag"
-        c1 = Tag(name=expected)
-        actual = str(c1)
-        self.assertEqual(expected, actual)
-
-
 class ParticipantTestCase(TestCase):
     """
     Subscribing to an event works.
@@ -237,6 +226,7 @@ class FrontEndTestCase(TestCase):
                 pubdate = self.now - self.timedelta * count
                 post.published_date = pubdate
                 post.date = self.now + datetime.timedelta(days=1)
+                post.tags = 'testy'
             post.save()
 
     def test_list_only_published(self):
@@ -269,3 +259,19 @@ class FrontEndTestCase(TestCase):
                 self.assertContains(resp, title)
             else:
                 self.assertEqual(resp.status_code, 404)
+
+    def test_tags_list(self):
+        """
+        Games with a particular tag display as a list.
+        """
+        self.client.login(username='alice', password='swordfish')
+        resp = self.client.get('/events/tag/testy/')
+        # the content of the rendered response is always a bytestring
+        resp_text = resp.content.decode(resp.charset)
+        self.assertTrue("Games by Tag" in resp_text)
+        for count in range(1, 11):
+            title = "Game %d Title" % count
+            if count < 6:
+                self.assertContains(resp, title, count=1)
+            else:
+                self.assertNotContains(resp, title)
