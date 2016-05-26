@@ -12,7 +12,8 @@ class EventForm(forms.ModelForm):
         exclude = ['creator',
                    'created_date',
                    'modified_date',
-                   'published_date'
+                   'published_date',
+                   'players',
                    ]
         widgets = {
             'date': SelectDateWidget(),

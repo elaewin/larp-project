@@ -13,7 +13,7 @@ class Player(models.Model):
                                         related_name='playing_in')
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Event(models.Model):
@@ -75,4 +75,6 @@ class Participation(models.Model):
         return self.game.title
 
     class Meta:
-        verbose_name_plural = 'Participation'
+        verbose_name = 'Player'
+        verbose_name_plural = 'Players'
+

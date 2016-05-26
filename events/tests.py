@@ -199,7 +199,7 @@ class EventTestCase(TestCase):
         self.assertEqual(expected, actual)
 
 
-class ParticipantTestCase(TestCase):
+class PlayerTestCase(TestCase):
     """
     Subscribing to an event works.
     """
