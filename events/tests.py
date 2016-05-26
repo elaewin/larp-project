@@ -268,6 +268,7 @@ class FrontEndTestCase(TestCase):
         resp = self.client.get('/events/tag/testy/')
         # the content of the rendered response is always a bytestring
         resp_text = resp.content.decode(resp.charset)
+        print(resp_text)
         self.assertTrue("Games by Tag" in resp_text)
         for count in range(1, 11):
             title = "Game %d Title" % count
