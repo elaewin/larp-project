@@ -210,20 +210,21 @@ class TagTestCase(TestCase):
         self.assertEqual(expected, actual)
 
 
-class SubscriptionTestCase(TestCase):
+class ParticipantTestCase(TestCase):
     """
     Subscribing to an event works.
     """
     pass
 
 
-class FrontEndTestCase(TestCase):
+class FrontEndTestCase(RegistrationTestCase):
     """
     test views provided in the front-end
     """
     fixtures = ['events_test_fixture.json', ]
 
     def setUp(self):
+        self.user = User.objects.create_user('alice', 'alice@example.com', 'swordfish')
         self.now = datetime.datetime.utcnow().replace(tzinfo=utc)
         self.timedelta = datetime.timedelta(15)
         author = User.objects.get(pk=1)
@@ -245,7 +246,6 @@ class FrontEndTestCase(TestCase):
         resp = self.client.get('/events/')
         # the content of the rendered response is always a bytestring
         resp_text = resp.content.decode(resp.charset)
-        print(resp_text)
         self.assertTrue("Upcoming Games" in resp_text)
         for count in range(1, 11):
             title = "Game %d Title" % count
@@ -258,6 +258,7 @@ class FrontEndTestCase(TestCase):
         """
         Only games that are 'published' in the admin view are reachable.
         """
+        self.client.login(username='alice', password='swordfish')
         for count in range(1, 11):
             title = "Game %d Title" % count
             post = Event.objects.get(title=title)
