@@ -217,7 +217,7 @@ class ParticipantTestCase(TestCase):
     pass
 
 
-class FrontEndTestCase(RegistrationTestCase):
+class FrontEndTestCase(TestCase):
     """
     test views provided in the front-end
     """
