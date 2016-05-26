@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from taggit.managers import TaggableManager
 
 
 class Event(models.Model):
@@ -33,6 +34,8 @@ class Event(models.Model):
     modified_date = models.DateTimeField("Modified", auto_now=True)
     published_date = models.DateTimeField("Published", blank=True, null=True)
 
+    tags = TaggableManager()
+
     def __str__(self):
         return self.title
 
@@ -40,19 +43,19 @@ class Event(models.Model):
         verbose_name_plural = 'Events'
 
 
-class Tag(models.Model):
-    """
-    Class for adding content tags to games.
-    """
-    name = models.CharField(max_length=128)
-    description = models.TextField(blank=True)
-    events = models.ManyToManyField(Event, blank=True, related_name='tags')
+# class Tag(models.Model):
+#     """
+#     Class for adding content tags to games.
+#     """
+#     name = models.CharField(max_length=128)
+#     description = models.TextField(blank=True)
+#     events = models.ManyToManyField(Event, blank=True, related_name='tags')
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
-    class Meta:
-        verbose_name_plural = 'Tags'
+#     class Meta:
+#         verbose_name_plural = 'Tags'
 
 
 class Participant(models.Model):

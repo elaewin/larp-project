@@ -1,7 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans|Ubuntu);
 
 /* formatting takes up full screen, requires both height and min-height */
-
 html { 
     height: 100%;
 }
@@ -20,7 +19,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Ubuntu", sans-serif;
 }
 
-p, td, th, li {
+p, td, th, li, em {
     color: #111;
     font-family: "Open Sans", sans-serif;
 }
@@ -109,28 +108,13 @@ ul#control-bar .active-edit {
 #content a:hover {color: #c6834f;}
 #content a:active {color: #eb4402;}
 
-ul#entries {
-    list-style: none;
-    list-style-type: none;
-}
-div.entry {
-    margin-right: 2em;
-    margin-top: 1em;
-    border-top: 1px solid #cecece;
-}
-ul#entries li:first-child div.entry {
-    border-top: none;
-    margin-top: 0em;
-}
-div.entry-body {
-    margin-left: 2em;
-}
 .notification {
     float: right;
     text-align: center;
     width: 25%;
     padding: 1em;
 }
+
 .info {
     background-color: #aae;
 }

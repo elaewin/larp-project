@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'events',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'taggit',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -165,3 +166,6 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {}
 
 CKEDITOR_RESTRICT_BY_USER = True
+
+# django-taggit settings:
+TAGGIT_CASE_INSENSITIVE = True

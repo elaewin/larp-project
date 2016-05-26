@@ -1,6 +1,6 @@
 import datetime
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
+# from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 # from django.template import RequestContext, loader
@@ -50,6 +50,13 @@ def past_list_view(request):
     return render(request, 'past_list.html', context)
 
 
+def tag_view(request, slug):
+    published = Event.objects.exclude(published_date__exact=None)
+    tags = published.filter(tags__slug=slug)
+    context = {'tags': tags}
+    return render(request, 'tags_list.html', context)
+
+
 @login_required
 def event_view(request, event_id):
     """
@@ -76,6 +83,7 @@ def event_new(request):
             event.creator = request.user
             event.published_date = datetime.datetime.now()
             event.save()
+            form.save_m2m()
             return redirect('event_detail', event.pk)
     else:
         form = EventForm()
@@ -95,10 +103,12 @@ def event_edit(request, pk):
             event.creator = request.user
             event.published_date = datetime.datetime.now()
             event.save()
+            form.save_m2m()
             return redirect('event_detail', event.pk)
     else: 
         form = EventForm(instance=event)
     return render(request, 'event_edit.html', {'form': form})
+
 
 
 

@@ -12,18 +12,18 @@
           Game System: <a href=" {{ event.rules_url }} ">{{ event.game_system }}</a>
         </p>
         <div class="post-body">
-          <p>Description: 
+          <p><strong>Description:</strong>
           {% with preview=event.description|safe %}
-          {{ preview|truncatechars_html:150 }}
+          {{ preview|truncatechars_html:150 }} 
           {% endwith %} <a href="{% url 'event_detail' event.pk %}"><em>(full details)</em></a></p>
-        {% if event.tags.all|length > 0 %}
-          <ul class="tags">
-              <li><strong>Tags:</strong></li>
-            {% for tag in event.tags.all %}
-              <li>{{ tag }},</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
+          {% if event.tags.all|length > 0 %}
+            <ul class="tags">
+                <li><strong>Tags:</strong></li>
+              {% for tag in event.tags.all %}
+                <li><a href="{% url 'tagged' tag.slug %}">{{tag}}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         </div>
       </div>
 

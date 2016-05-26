@@ -32,14 +32,14 @@
       {% else %}
         {{ event.character_info }}
       {% endif %}</p>
-    {% if event.tags.all|length > 0 %}
-      <ul class="tags">
-          <li><strong>Tags:</strong></li>
-        {% for tag in event.tags.all %}
-          <li>{{ tag }},</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+        {% if event.tags.all|length > 0 %}
+          <ul class="tags">
+              <li><strong>Tags:</strong></li>
+            {% for tag in event.tags.all %}
+              <li><a href="{% url 'tagged' tag.slug %}">{{tag}}</a> (slug: {{tag.slug}})</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
   </div>
 <div class="footer">
   <p class="time_info">Created by {{ event.creator }} on {{ event.published_date }}<br />
