@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'events',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'taggit',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -121,6 +122,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Set time format to 'Hours:Minutes'.
+TIME_INPUT_FORMAT = [
+    '%H:%M',
+]
+
+# Set date format to 'Month Day, Year'.
+DATE_INPUT_FORMATS = [
+    '%B %d, %Y',
+    '%m/%d/%Y',
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -155,3 +166,6 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {}
 
 CKEDITOR_RESTRICT_BY_USER = True
+
+# django-taggit settings:
+TAGGIT_CASE_INSENSITIVE = True

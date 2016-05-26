@@ -1,6 +1,6 @@
 import datetime
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
+# from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 # from django.template import RequestContext, loader
@@ -44,10 +44,18 @@ def past_list_view(request):
     Excludes events not published in the admin view as well as any events with 
     a datetime stamp that evaluates after 'now' via the python datetime module.
     """
-    published = Event.objects.exclude(published_date__exact=None).exclude(date__gt=datetime.datetime.now())
-    events = published.order_by('date')
+    published = Event.objects.exclude(published_date__exact=None)
+    events = published.order_by('date').exclude(date__gt=datetime.datetime.now())
     context = {'events': events}
     return render(request, 'past_list.html', context)
+
+
+@login_required
+def tag_view(request, slug):
+    published = Event.objects.exclude(published_date__exact=None)
+    events = published.filter(tags__slug=slug).order_by('date')
+    context = {'events': events}
+    return render(request, 'tags_list.html', context)
 
 
 @login_required
@@ -64,7 +72,7 @@ def event_view(request, event_id):
     return render(request, 'detail.html', context)
 
 
-# @login_required
+@login_required
 def event_new(request):
     """
     View for creation of a new event.
@@ -76,6 +84,7 @@ def event_new(request):
             event.creator = request.user
             event.published_date = datetime.datetime.now()
             event.save()
+            form.save_m2m()
             return redirect('event_detail', event.pk)
     else:
         form = EventForm()
@@ -95,10 +104,12 @@ def event_edit(request, pk):
             event.creator = request.user
             event.published_date = datetime.datetime.now()
             event.save()
+            form.save_m2m()
             return redirect('event_detail', event.pk)
     else: 
         form = EventForm(instance=event)
     return render(request, 'event_edit.html', {'form': form})
+
 
 
 

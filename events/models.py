@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from taggit.managers import TaggableManager
 
 
 class Event(models.Model):
@@ -14,9 +15,9 @@ class Event(models.Model):
     rules_url = models.URLField("Rules URL", blank=True)
     description = RichTextField(blank=True)
     date = models.DateField("Game Date", blank=True, default="2016-01-01")
-    checkin = models.TimeField("Check-in opens", blank=True, default="12:00:00.000")
-    game_on = models.TimeField("Game on at", blank=True, default="12:00:00.000")
-    game_off = models.TimeField("Game off at", blank=True, default="12:00:00.000")
+    checkin = models.TimeField("Check-in opens", blank=True, default="12:00")
+    game_on = models.TimeField("Game on at", blank=True, default="12:00")
+    game_off = models.TimeField("Game off at", blank=True, default="12:00")
     location_address1 = models.CharField("Game location address", max_length=64, blank=True)
     location_address2 = models.CharField("Address, cont.", max_length=64, blank=True)
     location_city = models.CharField("City", max_length=64, blank=True)
@@ -33,6 +34,8 @@ class Event(models.Model):
     modified_date = models.DateTimeField("Modified", auto_now=True)
     published_date = models.DateTimeField("Published", blank=True, null=True)
 
+    tags = TaggableManager()
+
     def __str__(self):
         return self.title
 
@@ -40,16 +43,30 @@ class Event(models.Model):
         verbose_name_plural = 'Events'
 
 
-class Tag(models.Model):
+# class Tag(models.Model):
+#     """
+#     Class for adding content tags to games.
+#     """
+#     name = models.CharField(max_length=128)
+#     description = models.TextField(blank=True)
+#     events = models.ManyToManyField(Event, blank=True, related_name='tags')
+
+#     def __str__(self):
+#         return self.name
+
+#     class Meta:
+#         verbose_name_plural = 'Tags'
+
+
+class Participant(models.Model):
     """
-    Class for adding content tags to games.
+    Lists of participants for each game.
     """
-    name = models.CharField(max_length=128)
-    description = models.TextField(blank=True)
-    events = models.ManyToManyField(Event, blank=True, related_name='tags')
+    game = models.ForeignKey(Event)
+    players = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.game.title
 
     class Meta:
-        verbose_name_plural = 'Tags'
+        verbose_name_plural = 'Participants'
