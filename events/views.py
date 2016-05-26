@@ -53,8 +53,8 @@ def past_list_view(request):
 @login_required
 def tag_view(request, slug):
     published = Event.objects.exclude(published_date__exact=None)
-    tags = published.filter(tags__slug=slug)
-    context = {'tags': tags}
+    events = published.filter(tags__slug=slug).order_by('date')
+    context = {'events': events}
     return render(request, 'tags_list.html', context)
 
 
