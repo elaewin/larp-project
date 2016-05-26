@@ -36,7 +36,7 @@
           <ul class="tags">
               <li><strong>Tags:</strong></li>
             {% for tag in event.tags.all %}
-              <li><a href="{% url 'tagged' tag.slug %}">{{tag}}</a> (slug: {{tag.slug}})</li>
+              <li><a href="{% url 'tagged' tag.slug %}">{{tag}}</a></li>
             {% endfor %}
           </ul>
         {% endif %}

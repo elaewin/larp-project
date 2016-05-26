@@ -17,14 +17,16 @@
           {% with preview=event.description|safe %}
           {{ preview|truncatechars_html:150 }}
           {% endwith %} <a href="{% url 'event_detail' event.pk %}"><em>(full details)</em></a></p>
-        {% if event.tags.all|length > 0 %}
           <ul class="tags">
-              <li><strong>Tags:</strong></li>
-            {% for tag in event.tags.all %}
-              <li><a href="{% url 'tagged' tag.slug %}">{{tag}}</a></li>
-            {% endfor %}
+            <li><strong>Tags:</strong></li>
+              {% if event.tags.all|length > 0 %}
+                {% for tag in event.tags.all %}
+                  <li><a href="{% url 'tagged' tag.slug %}">{{tag}}</a></li>
+                {% endfor %}
+              {% else %}
+                <li><em>(None)</em></li>
+              {% endif %}
           </ul>
-        {% endif %}
         </div>
       </div>
   {% endfor %}
