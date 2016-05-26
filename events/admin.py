@@ -1,11 +1,11 @@
 import datetime
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from events.models import Event, Participant
+from events.models import Player, Event, Participation
 
 
-class ParticipantInline(admin.TabularInline):
-    model = Participant.players.through
+# class ParticipantInline(admin.TabularInline):
+#     model = Participant.players.through
 
 
 def make_published(modeladmin, request, queryset):
@@ -32,10 +32,10 @@ class EventAdmin(admin.ModelAdmin):
     creator_for_admin.allow_tags = True
 
 
-class ParticipantAdmin(admin.ModelAdmin):
-    fields = ('game', 'players')
+# class ParticipationAdmin(admin.ModelAdmin):
+#     fields = ('game', 'players')
 
 
 # Register your models here.
 admin.site.register(Event, EventAdmin)
-admin.site.register(Participant, ParticipantAdmin)
+# admin.site.register(Participant, ParticipantAdmin)

@@ -4,6 +4,18 @@ from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 
 
+class Player(models.Model):
+    """
+    """
+    name = models.ForeignKey(User)
+    participating_in = models.ManyToManyField('self', through='Participation',
+                                        symmetrical=False,
+                                        related_name='playing_in')
+
+    def __str__(self):
+        return self.name
+
+
 class Event(models.Model):
     """
     Class for all game events.
@@ -33,6 +45,7 @@ class Event(models.Model):
     created_date = models.DateTimeField("Created", auto_now_add=True)
     modified_date = models.DateTimeField("Modified", auto_now=True)
     published_date = models.DateTimeField("Published", blank=True, null=True)
+    players = models.ManyToManyField(Player, through='Participation')
 
     tags = TaggableManager()
 
@@ -43,30 +56,23 @@ class Event(models.Model):
         verbose_name_plural = 'Events'
 
 
-# class Tag(models.Model):
-#     """
-#     Class for adding content tags to games.
-#     """
-#     name = models.CharField(max_length=128)
-#     description = models.TextField(blank=True)
-#     events = models.ManyToManyField(Event, blank=True, related_name='tags')
-
-#     def __str__(self):
-#         return self.name
-
-#     class Meta:
-#         verbose_name_plural = 'Tags'
+PARTICIPATION_PLAYING = 1
+PARTICIPATION_NOT_PLAYER = 2
+PARTICIPATION_STATUSES = (
+    (PARTICIPATION_PLAYING, 'Playing'),
+    (PARTICIPATION_NOT_PLAYER, 'Not Playing'),
+    )
 
 
-class Participant(models.Model):
+class Participation(models.Model):
     """
-    Lists of participants for each game.
     """
-    game = models.ForeignKey(Event)
-    players = models.ManyToManyField(User, blank=True)
+    person = models.ForeignKey(Player, on_delete=models.CASCADE)
+    game = models.ForeignKey(Event, on_delete=models.CASCADE)
+    status = models.IntegerField(choices=PARTICIPATION_STATUSES)
 
     def __str__(self):
         return self.game.title
 
     class Meta:
-        verbose_name_plural = 'Participants'
+        verbose_name_plural = 'Participation'
