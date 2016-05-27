@@ -20,11 +20,6 @@ Views
 .. automodule:: events.views
    :members:
 
-Tests
------
-
-.. automodule:: events.tests
-   :members:
 
 
 
