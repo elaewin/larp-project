@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 # from django.template import RequestContext, loader
 from events.models import Event
-from events.forms import ContactForm, EventForm
+from events.forms import EventForm, SignUpForm
 
 
 def stub_view(request, *args, **kwargs):
@@ -72,6 +72,23 @@ def event_view(request, event_id):
     return render(request, 'detail.html', context)
 
 
+def sign_up_view(request, event_id):
+    """
+    View for details of a specific event.
+    """
+    event = get_object_or_404(Event, pk=pk)
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            signup = form.save(commit=False)
+            signup.participating_in = event.player
+            signup.save()
+            return redirect('event_detail', event.pk)
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
+
+
 @login_required
 def event_new(request):
     """
@@ -111,6 +128,34 @@ def event_edit(request, pk):
     return render(request, 'event_edit.html', {'form': form})
 
 
+# @login_required
+# def event_view(request, event_id):
+#     """
+#     View for details of a specific event.
+#     """
+#     current_date = datetime.datetime.now()
+#     published = Event.objects.exclude(published_date__exact=None)
+#     event = get_object_or_404(published, pk=event_id)
+#     form = SignUpForm(request.POST, instance=event)
+#     try:
+#         event = published.get(pk=event_id)
+#         if request.method == "POST":
+#             form = SignUpForm(request.POST)
+#             if form.is_valid():
+#                 if current_date - form.age > 21:
+#                     signup = form.save(commit=False)
+#                     signup.participating_in = event.player
+#                     signup.save()
+#                     # form.save_m2m()
+#                     return redirect('signup.html', event.pk)
+#                 else:
+#                     return redirect('signup_fail.html', event.pk)
+#         else:
+#             form = SignUpForm()
+#     except Event.DoesNotExist:
+#         raise Http404
+#     context = {'event': event, 'form': form}
+#     return render(request, 'detail.html', context)
 
 
 # if ContactForm.is_valid():

@@ -1,5 +1,5 @@
 from django.conf.urls import include, url
-from events.views import event_edit, event_new, event_view, list_view, past_list_view, home_view, tag_view
+from events.views import event_edit, event_new, event_view, list_view, past_list_view, home_view, tag_view, sign_up_view
 
 urlpatterns = [
     url(r'^$', home_view, name="home_page"),
@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^events/(?P<pk>\d+)/edit/$',  event_edit,  name='event_edit'),
     url(r'^events/past/$', past_list_view, name="events_past"),
     url(r'^events/tag/(?P<slug>[-\w]+)/$', tag_view, name="tagged"),
+    url(r'^events/(?P<pk>\d+)/sign-up/$', sign_up_view, name="sign_up"),
 ]

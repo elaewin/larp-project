@@ -8,9 +8,10 @@ class Player(models.Model):
     """
     """
     name = models.ForeignKey(User)
+    birthday = models.DateField("Player Birthday", default='2016-01-01')
     participating_in = models.ManyToManyField('self', through='Participation',
-                                        symmetrical=False,
-                                        related_name='playing_in')
+                                              symmetrical=False,
+                                              related_name='playing_in')
 
     def __str__(self):
         return str(self.name)

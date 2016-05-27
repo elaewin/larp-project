@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
-from events.models import Event
+from events.models import Event, Player
 
 
 class EventForm(forms.ModelForm):
@@ -17,6 +17,19 @@ class EventForm(forms.ModelForm):
                    ]
         widgets = {
             'date': SelectDateWidget(),
+        }
+
+
+class SignUpForm(forms.Form):
+    """
+    Form that players can use to sign up for a game.
+    """
+    class Meta:
+        model = Player
+        exclude = ['participating_in',
+                   ]
+        widgets = {
+            'birthday': SelectDateWidget(),
         }
 
 

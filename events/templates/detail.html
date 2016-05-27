@@ -5,51 +5,62 @@
 <p class="byline">
   Hosted by <a href="mailto:{{ event.contact_email }}">{{ event.contact_name }}</a>
 </p>
-<div class="post-body">
-  <p>
-    Event Date: {{ event.date }}<br />
-    Game System: <a href=" {{ event.rules_url }} ">{{ event.game_system }}</a><br />
-    Age Restriction: 
-      {% if event.age_restriction %}
-        {{ event.age_limit }} 
-      {% else %}
-        None
-      {% endif %}<br />
-    Event Cost: ${{ event.cost }}
-  </p>
-  <p>
-    Check-in Time: {{ event.checkin }}<br />
-    Event Begins (Game On): {{ event.game_on }}<br />
-    Event Ends (Game Off): {{ event.game_off }}<br />
-    Event Location: {{ event.location_address1 }} {{ event.location_address2 }} {{ event.location_city }}, {{ event.location_state }} {{ event.location_zip }}
-  <p>
-    Summary/Teaser: {{ event.description }}
-  </p>
-  <p>
-    Character Creation Information:<br />
-      {% if event.pregens %}
-        Pregenerated characters will be provided. 
-      {% else %}
-        {{ event.character_info }}
-      {% endif %}</p>
-        {% if event.tags.all|length > 0 %}
-          <ul class="tags">
-              <li><strong>Tags:</strong></li>
-            {% for tag in event.tags.all %}
-              <li><a href="{% url 'tagged' tag.slug %}">{{tag}}</a></li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-  </div>
-<div class="footer">
-  <p class="time_info">Created by {{ event.creator }} on {{ event.published_date }}<br />
-  Last modified 
-    {% if event.modified_date %} 
-      {{ event.modified_date }}
+<p>
+  Event Date: {{ event.date }}<br />
+  Game System: <a href=" {{ event.rules_url }} ">{{ event.game_system }}</a><br />
+  Age Restriction: 
+    {% if event.age_restriction %}
+      {{ event.age_limit }} 
     {% else %}
-      {{ event.created_date }}
+      None
+    {% endif %}<br />
+  Event Cost: ${{ event.cost }}
+</p>
+<p>
+  Check-in Time: {{ event.checkin }}<br />
+  Event Begins (Game On): {{ event.game_on }}<br />
+  Event Ends (Game Off): {{ event.game_off }}<br />
+  Event Location: {{ event.location_address1 }} {{ event.location_address2 }} {{ event.location_city }}, {{ event.location_state }} {{ event.location_zip }}
+<p>
+  Summary/Teaser: {{ event.description|safe }}
+</p>
+<p>
+  Character Creation Information:<br />
+    {% if event.pregens %}
+      Pregenerated characters will be provided. 
+    {% else %}
+      {{ event.character_info|safe }}
     {% endif %}</p>
-</div>
+      {% if event.tags.all|length > 0 %}
+        <ul class="tags">
+            <li><strong>Tags:</strong></li>
+          {% for tag in event.tags.all %}
+            <li><a href="{% url 'tagged' tag.slug %}">{{tag}}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+    {% if event.creator == user%}
+      {% if event.players.all|length > 0 %}
+        <p>The following players are registered for this event:</p>
+        {% for player in event.players.all %}
+        <p>{{ player }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+
+<p class="time_info">Created by {{ event.creator }} on {{ event.published_date }}<br />
+Last modified 
+  {% if event.modified_date %} 
+    {{ event.modified_date }}
+  {% else %}
+    {{ event.created_date }}
+  {% endif %}</p>
+<!-- 
+<div class="table">
+  <a href="{% url 'sign_up' event.pk %}" class="faux-btn">sign up</a>
+</div> -->
+
 {% endblock %}
 
 

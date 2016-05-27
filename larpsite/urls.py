@@ -22,14 +22,8 @@ from django.contrib.auth.views import login, logout
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('events.urls')),
-    url(r'^login/$',
-        login,
-        {'template_name': 'login.html'},
-        name="login"),
-    url(r'^logout/$',
-        logout,
-        {'next_page': '/'},
-        name="logout"),
+    url(r'^login/$', login, {'template_name': 'login.html'}, name="login"),
+    url(r'^logout/$', logout, {'next_page': '/'}, name="logout"),
     url(r'^', include('registration.backends.hmac.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
